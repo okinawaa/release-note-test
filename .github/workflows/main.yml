@@ -33,11 +33,17 @@ jobs:
 
       # Drafts your next Release notes as Pull Requests are merged into "master"
       
+      steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
         with:
-          path: ./packages/react
+          path: packages/react
 
       
       - uses: release-drafter/release-drafter@v5
