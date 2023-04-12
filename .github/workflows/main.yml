@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
       
       - name: get-npm-version
-        id: package-version
+        id: package-version-react
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: packages/react
@@ -51,7 +51,31 @@ jobs:
         #   config-name: my-config.yml
         #   disable-autolabeler: true
         with:
-          version: "v${{ steps.package-version.outputs.current-version }}"
+          version: "v${{ steps.package-version-react.outputs.current-version }}"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: get-npm-version
+        id: package-version-react-query
+        uses: martinbeentjes/npm-get-version-action@main
+        with:
+          path: packages/react-query
+
+      
+      - uses: release-drafter/release-drafter@v5
+        # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
+        # with:
+        #   config-name: my-config.yml
+        #   disable-autolabeler: true
+        with:
+          version: "v${{ steps.package-version-react-query.outputs.current-version }}"
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
