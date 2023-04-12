@@ -33,10 +33,11 @@ jobs:
 
       # Drafts your next Release notes as Pull Requests are merged into "master"
       
-      - uses: bbonkr/get-version-action@v1.0.3
-        id: get_version
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
         with:
-          project: "../package.json"
+          path: packages/<yourpackage>
 
       
       - uses: release-drafter/release-drafter@v5
